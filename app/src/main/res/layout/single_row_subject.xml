@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_weight="10"
+    android:padding="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_round"
+    android:layout_margin="6dp"
+    android:orientation="horizontal"
+    android:layout_marginTop="4dp">
+
+
+    <ImageView
+        android:id="@+id/renameBttn"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_margin="6dp"
+        android:layout_weight="0"
+        android:gravity="center_vertical"
+        android:minHeight="60dp"
+        android:src="@drawable/ic_mode_edit_black_24dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/subjectname"
+        android:layout_toRightOf="@+id/renameBttn"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:text="Subject Name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/Black"
+        android:layout_weight="7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="50sp"
+        android:layout_gravity="center">
+    </TextView>
+
+    <Button
+        android:id="@+id/bttnPopup"
+        android:layout_width="35dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_toRightOf="@+id/subjectname"
+        android:layout_weight="0.25"
+        android:background="@drawable/ic_arrow_drop_down_black_24dp"
+        android:minHeight="50dp" />
+
+    <ImageView
+        android:id="@+id/deleteBttn"
+        android:layout_weight="1"
+        android:layout_height="45dp"
+        android:layout_width="45dp"
+        android:minHeight="60dp"
+        android:src="@drawable/ic_delete_forever_black_24dp2"
+        android:layout_toRightOf="@+id/spinner"
+        android:layout_margin="6dp"
+        android:layout_gravity="center_vertical"
+        android:foregroundGravity="center"
+        />
+
+
+</LinearLayout>

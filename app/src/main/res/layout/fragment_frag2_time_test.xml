@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Frag2_timeTest"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_timer1"
+        android:hint="Select Time"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:drawableTop="@drawable/ic_access_time_black_24dp"
+        android:padding="50dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_timer2"
+        android:hint="Select Time"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:drawableTop="@drawable/ic_access_time_black_24dp"
+        android:padding="50dp"
+        android:layout_marginTop="16dp"
+        />
+
+</LinearLayout>

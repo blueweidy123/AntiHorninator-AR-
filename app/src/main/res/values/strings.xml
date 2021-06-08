@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Anti Hỏny Gểnator </string>
+    <string name="app_name_alter">AntiHorninator </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="subjectList">
+        <item>Subjects</item>
+        <item>Toán Học</item>
+        <item>Đại Số</item>
+        <item>Hình Học</item>
+        <item>Văn Học</item>
+        <item>Ngoại Ngữ</item>
+        <item>Sinh Học</item>
+        <item>Lịch Sử</item>
+        <item>Địa Lí</item>
+        <item>Hóa Học</item>
+        <item>Vật Lí</item>
+        <item>Tin Học</item>
+        <item>GDCD</item>
+        <item>Công Nghệ</item>
+        <item>Triết Học</item>
+        <item>GDQP-AN</item>
+
+    </string-array>
+    <string name="title_activity_communication">CommunicationActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">FirstFrag</string>
+    <string name="second_fragment_label">SecondFrag</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="detele_table_voice_en">delete table</string>
+    <string name="detele_table_voice_vie">xoá thời khóa biểu</string>
+    <string name="Q1">I dont want to be horny anynore</string>
+    <string name="Q2">I just want to be happy</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="empty">EMPTY</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+</resources>

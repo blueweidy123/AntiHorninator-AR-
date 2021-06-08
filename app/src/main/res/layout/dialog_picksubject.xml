@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/popup_getsubjectwindow_bg"
+    >
+
+    <RelativeLayout
+        android:background="@drawable/popup_getsubjectwindow_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10sp"
+        android:layout_marginTop="10sp"
+        android:layout_marginEnd="10sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            c<Button
+                android:id="@+id/sjButton_toan"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Toán"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_dai"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đại số-Giải tích"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_hinh"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hình học"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_van"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ngữ văn"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_anh"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ngoại ngữ"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+
+            <Button
+                android:id="@+id/sjButton_sinh"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sinh học"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:textStyle="bold"></Button>
+            <Button
+                android:id="@+id/sjButton_su"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lịch sử"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_dia"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Địa lí"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_hoa"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hóa học"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_li"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vật lí"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_tin"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tin học"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_gdcd"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="GDCD"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_cn"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Công nghệ"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_triet"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Triết học"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_gdqp_an"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="GDQP-An ninh"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_TD"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thể dục"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_CC"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chào cờ"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+            <Button
+                android:id="@+id/sjButton_SHL"
+                android:background="@drawable/custom_round_pickup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SHL"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center">
+            </Button>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>
