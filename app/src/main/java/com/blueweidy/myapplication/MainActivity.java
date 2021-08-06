@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkPermission();
-        checkBatteryPermission();
+        //checkBatteryPermission();
+
         //Database_sqlite database_sqlite = new Database_sqlite(this);
         //set statusBar color
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
