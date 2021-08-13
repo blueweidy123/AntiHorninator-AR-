@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_desc">grand this permission to lock screen </string>
     <string name="app_name">Anti Hỏny Gểnator </string>
     <string name="app_name_alter">AntiHorninator </string>
 

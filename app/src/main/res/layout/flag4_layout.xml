@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="X"
         android:textSize="25sp"
-        android:layout_marginTop="275dp"
+        android:layout_marginTop="320dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>
@@ -75,7 +75,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/view6"
-        app:layout_constraintTop_toTopOf="@+id/view6"></Button>
+        app:layout_constraintTop_toTopOf="@+id/view6">
+
+    </Button>
 
     <Chronometer
         android:id="@+id/textView_timer"
@@ -87,5 +89,7 @@
         app:layout_constraintEnd_toEndOf="@+id/view5"
         app:layout_constraintStart_toStartOf="@+id/view5"
         app:layout_constraintTop_toTopOf="@+id/view5" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

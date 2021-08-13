@@ -59,17 +59,14 @@ public class IntroActivity extends AppCompatActivity {
 
         tabIndicator.setupWithViewPager(screenPager);
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                position = screenPager.getCurrentItem();
-                if (position < mList.size()){
-                    position++;
-                    screenPager.setCurrentItem(position);
-                }
-                if (position == mList.size()-1){
-                    loadLastScreen();
-                }
+        btnNext.setOnClickListener(view -> {
+            position = screenPager.getCurrentItem();
+            if (position < mList.size()){
+                position++;
+                screenPager.setCurrentItem(position);
+            }
+            if (position == mList.size()-1){
+                loadLastScreen();
             }
         });
 
@@ -94,16 +91,13 @@ public class IntroActivity extends AppCompatActivity {
             }
         });
 
-        btnGetStarted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnGetStarted.setOnClickListener(view -> {
 
-                Intent startAtiv = new Intent(getApplicationContext(), startActiv.class);
-                startActivity(startAtiv);
-                savePrefsData();
-                finish();
+            Intent startAtiv = new Intent(getApplicationContext(), startActiv.class);
+            startActivity(startAtiv);
+            savePrefsData();
+            finish();
 
-            }
         });
 
     }

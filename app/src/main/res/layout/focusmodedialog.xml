@@ -7,8 +7,6 @@
     android:layout_height="wrap_content"
     android:padding="10dp"  android:background="@drawable/custom_rounddialog_add">
 
-
-
     <TextView
         android:id="@+id/addDialog"
         android:layout_width="match_parent"

@@ -1,25 +1,21 @@
 package com.blueweidy.myapplication;
 
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.PowerManager;
-import android.os.SystemClock;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
@@ -37,16 +33,14 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
     Sensor accelerometerSensor;
     boolean accelerometerPresent;
 
-    private PowerManager mPowerManager;
-    private PowerManager.WakeLock mWakeLock;
-
     Button startBttn;
     Chronometer timerText;
     TextView test;
 
-    private Animation fate;
+    static final int RESULT_ENABLE = 1;
+    DevicePolicyManager devicePolicyManager;
+    ComponentName componentName;
 
-    long pauseSet;
     boolean isFocusing = false;
     boolean deviceFacingDown;
 
@@ -56,6 +50,12 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.flag4_layout, container, false);
 
+        startBttn = view.findViewById(R.id.focus_mode_bttn);
+
+        devicePolicyManager = (DevicePolicyManager)getActivity().getSystemService(Context.DEVICE_POLICY_SERVICE);
+        componentName = new ComponentName(getActivity(), Controller.class);
+
+//region sensor init
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
         if (sensorList.size() > 0){
@@ -65,15 +65,23 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
             accelerometerPresent = false;
             Toast.makeText(getActivity(), "No accalerometer present!!", Toast.LENGTH_SHORT).show();
         }
+//endregion
 
-        startBttn = view.findViewById(R.id.focus_mode_bttn);
+        startBttn.setOnClickListener(this);
+
+        boolean active = devicePolicyManager.isAdminActive(componentName);
+        if (active){
+            startBttn.setText("START");
+        }else {
+            startBttn.setText("Enable");
+        }
+
         startBttn.setOnClickListener(this);
 
         test = view.findViewById(R.id.testorienty);
         timerText = view.findViewById(R.id.textView_timer);
-        fate = AnimationUtils.loadAnimation(getActivity(), R.anim.disapear);
 
-        //region test translation/rotation
+//region test translation/rotation
         /*
         accelerometer.setListener(new Accelerometer.Listener() {
             @Override
@@ -97,34 +105,6 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         return view;
     }
 
-    private void remindDialog(){
-        Dialog dialog = new Dialog(getActivity());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.focusmodedialog);
-        dialog.show();
-    }
-
-    private void startTimer(){
-        if (!isFocusing){
-            timerText.setBase(SystemClock.elapsedRealtime() - pauseSet);
-            timerText.start();
-            isFocusing = true;
-            startBttn.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    private void pauseTimer(){
-        if (isFocusing){
-            timerText.stop();
-            pauseSet = SystemClock.elapsedRealtime() - timerText.getBase();
-            isFocusing = false;
-        }
-    }
-
-    private void resetTimer(){
-        timerText.setBase(SystemClock.elapsedRealtime());
-        pauseSet = 0;
-    }
 
     private SensorEventListener accelerometerListener = new SensorEventListener() {
         @Override
@@ -132,9 +112,11 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
             float z_value = arg0.values[2];
             if (z_value >= 0){
                 deviceFacingDown = false;
+                isFocusing = false;
                 test.setText("On");
             }else {
                 deviceFacingDown = true;
+                isFocusing = true;
                 test.setText("Off");
             }
         }
@@ -145,21 +127,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         }
     };
 
-
-
-    private void checkDeviceState(){
-        if (deviceFacingDown){
-            final Handler handler = new Handler(Looper.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (deviceFacingDown){
-
-                    }
-                }
-            },2000);
-        }
-    }
+//region lock/unlock screen method
 
     private void unlockScreen(){
         Window window = getActivity().getWindow();
@@ -168,29 +136,13 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
     }
 
-    public void turnOnScreen(){
-        test.setText("On");
-        on();
-    }
 
-    public void turnOffScreen(){
-        test.setText("Off");
-        off();
+    public void turnScreenOff(){
+        devicePolicyManager.lockNow();
     }
+//endregion
 
-    @SuppressLint("InvalidWakeLockTag")
-    public void on(){
-        Log.v("ProximityActivity", "ON!");
-        mWakeLock = mPowerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP, "tag");
-        mWakeLock.acquire();
-    }
 
-    @SuppressLint("InvalidWakeLockTag")
-    public void off(){
-        Log.v("ProximityActivity", "OFF!");
-        mWakeLock = mPowerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "tag");
-        mWakeLock.acquire();
-    }
 
     @Override
     public void onResume() {
@@ -212,9 +164,36 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.focus_mode_bttn:{
-                //remindDialog();
-                off();
+                boolean active = devicePolicyManager.isAdminActive(componentName);
+                if (active) {
+                    startBttn.setText("START");
+                    Dialog dialog = new Dialog(getActivity());
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.focusmodedialog);
+                    dialog.show();
+                    isFocusing = true;
+
+                }else {
+                    Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+                    intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+                    intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "enable plszzz!!");
+                    startActivityForResult(intent, RESULT_ENABLE);
+                }
             }
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode){
+            case RESULT_ENABLE:
+                if (requestCode == Activity.RESULT_OK){
+                    startBttn.setText("START");
+                }else {
+                    startBttn.setText("START");
+                }
+                return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
