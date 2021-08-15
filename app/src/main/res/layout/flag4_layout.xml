@@ -79,12 +79,14 @@
 
     </Button>
 
-    <Chronometer
+    <TextView
         android:id="@+id/textView_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00:00"
-        android:textSize="70dp"
+        android:text="00:00:00"
+        android:textSize="60dp"
+        android:textColor="@color/Black"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/view5"
         app:layout_constraintEnd_toEndOf="@+id/view5"
         app:layout_constraintStart_toStartOf="@+id/view5"

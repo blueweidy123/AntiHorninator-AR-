@@ -1,11 +1,12 @@
 package com.blueweidy.myapplication;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.admin.DevicePolicyManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -17,13 +18,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
     boolean accelerometerPresent;
 
     Button startBttn;
-    Chronometer timerText;
+    TextView timerText;
     TextView test;
 
     static final int RESULT_ENABLE = 1;
@@ -43,7 +44,6 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
     boolean isFocusing = false;
     boolean deviceFacingDown;
-
 
     @Nullable
     @Override
@@ -81,6 +81,16 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         test = view.findViewById(R.id.testorienty);
         timerText = view.findViewById(R.id.textView_timer);
 
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(
+                new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        String time = intent.getStringExtra(BroadcastService.TIME);
+                        timerText.setText(time);
+                    }
+                }, new IntentFilter(BroadcastService.ACTION_TIME_BROADCAST)
+        );
+
 //region test translation/rotation
         /*
         accelerometer.setListener(new Accelerometer.Listener() {
@@ -105,19 +115,21 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         return view;
     }
 
-
+//region Sensor listener
     private SensorEventListener accelerometerListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent arg0) {
             float z_value = arg0.values[2];
             if (z_value >= 0){
                 deviceFacingDown = false;
-                isFocusing = false;
                 test.setText("On");
             }else {
                 deviceFacingDown = true;
-                isFocusing = true;
                 test.setText("Off");
+                if (isFocusing){
+                    turnScreenOff();
+                    isFocusing = false;
+                }
             }
         }
 
@@ -126,6 +138,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
         }
     };
+//endregion
 
 //region lock/unlock screen method
 
@@ -141,8 +154,6 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         devicePolicyManager.lockNow();
     }
 //endregion
-
-
 
     @Override
     public void onResume() {
@@ -160,23 +171,34 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         }
     }
 
+    public void startTimer(){
+        Intent intent = new Intent(getActivity(), BroadcastService.class);
+        getActivity().startService(intent);
+    }
+
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            //start button
             case R.id.focus_mode_bttn:{
                 boolean active = devicePolicyManager.isAdminActive(componentName);
                 if (active) {
+                    /*
                     startBttn.setText("START");
                     Dialog dialog = new Dialog(getActivity());
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(R.layout.focusmodedialog);
                     dialog.show();
-                    isFocusing = true;
+                    isFocusing = true;*/
+                    startTimer();
 
                 }else {
+                    //get permission
                     Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
                     intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
-                    intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "enable plszzz!!");
+                    intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "enable this to lock screen!!");
                     startActivityForResult(intent, RESULT_ENABLE);
                 }
             }
