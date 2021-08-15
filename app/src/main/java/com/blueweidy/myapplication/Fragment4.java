@@ -1,6 +1,8 @@
 package com.blueweidy.myapplication;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -12,6 +14,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +28,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -81,15 +86,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         test = view.findViewById(R.id.testorienty);
         timerText = view.findViewById(R.id.textView_timer);
 
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(
-                new BroadcastReceiver() {
-                    @Override
-                    public void onReceive(Context context, Intent intent) {
-                        String time = intent.getStringExtra(BroadcastService.TIME);
-                        timerText.setText(time);
-                    }
-                }, new IntentFilter(BroadcastService.ACTION_TIME_BROADCAST)
-        );
+        setTimerText();
 
 //region test translation/rotation
         /*
@@ -111,7 +108,6 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         });
         */
 //endregion
-
         return view;
     }
 
@@ -126,9 +122,11 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
             }else {
                 deviceFacingDown = true;
                 test.setText("Off");
+            }
+            if (deviceFacingDown){
                 if (isFocusing){
+                    startTimer();
                     turnScreenOff();
-                    isFocusing = false;
                 }
             }
         }
@@ -176,6 +174,40 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
         getActivity().startService(intent);
     }
 
+    public void stopTimer(){
+        Intent intent = new Intent(getActivity(), BroadcastService.class);
+        getActivity().stopService(intent);
+    }
+
+    public void setTimerText(){
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(
+                new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        String time = intent.getStringExtra(BroadcastService.TIME);
+                        timerText.setText(time);
+                    }
+                }, new IntentFilter(BroadcastService.ACTION_TIME_BROADCAST)
+        );
+    }
+
+    public void onStopTimer(){
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(
+                new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        String time = intent.getStringExtra(BroadcastService.STOP_TIME);
+                        timerText.setText(time);
+                        Dialog dialog = new Dialog(getActivity());
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.setContentView(R.layout.focus_end_dialog);
+                        final TextView focusEnd = dialog.findViewById(R.id.focus_mode_ending_text);
+                        focusEnd.setText("You just stay focused only for " + time + "?? papa disapointed about you !!!");
+                        dialog.show();
+                    }
+                }, new IntentFilter(BroadcastService.ACTION_TIME_END_BROADCAST)
+        );
+    }
 
 
     @Override
@@ -185,14 +217,28 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
             case R.id.focus_mode_bttn:{
                 boolean active = devicePolicyManager.isAdminActive(componentName);
                 if (active) {
-                    /*
-                    startBttn.setText("START");
-                    Dialog dialog = new Dialog(getActivity());
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.setContentView(R.layout.focusmodedialog);
-                    dialog.show();
-                    isFocusing = true;*/
-                    startTimer();
+                    if (isFocusing){
+                        startBttn.setText("START");
+                        onStopTimer();
+                        stopTimer();
+                        isFocusing = false;
+                    }else {
+                        startBttn.setText("START");
+                        Dialog dialog = new Dialog(getActivity());
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.setContentView(R.layout.focusmodedialog);
+                        dialog.show();
+                        new Handler().postDelayed(() -> {
+                            dialog.dismiss();
+                        }, 5000);
+                        isFocusing = true;
+                        startBttn.setText("STOP");
+
+                    }
+
+
+
+
 
                 }else {
                     //get permission

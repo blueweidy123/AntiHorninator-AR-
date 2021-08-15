@@ -21,7 +21,9 @@ public class BroadcastService extends Service {
 
     public static final String
             ACTION_TIME_BROADCAST = BroadcastService.class.getName() + "TimeBroadcast",
-            TIME = "extra_time";
+            ACTION_TIME_END_BROADCAST = BroadcastService.class.getName() + "TIME_STOP",
+            TIME = "extra_time",
+            STOP_TIME = "extra_time_STOPED";
 
 
 
@@ -42,18 +44,39 @@ public class BroadcastService extends Service {
         start();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stop();
+    }
+
     private void sendBroadcastMessage(String time){
         Intent intent = new Intent(ACTION_TIME_BROADCAST);
         intent.putExtra(TIME, getTimerText());
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
-    public void reset(){
+    private void endBroadcastMessege(String time){
+        Intent intent = new Intent(ACTION_TIME_END_BROADCAST);
+        intent.putExtra(STOP_TIME, getTimerText());
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
+    /*public void reset(){
         if (timerTask != null){
             timerTask.cancel();
             time = 0.0;
             timerstarted = false;
             //settext
+        }
+    }*/
+
+    public void stop(){
+        if (timerstarted == true){
+            timerstarted = false;
+            timerTask.cancel();
+            endBroadcastMessege(getTimerText());
+            //reset();
         }
     }
 
@@ -100,9 +123,5 @@ public class BroadcastService extends Service {
         return null;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        timerTask.cancel();
-    }
+
 }

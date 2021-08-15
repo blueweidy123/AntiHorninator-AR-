@@ -3,6 +3,8 @@
     <string name="app_name">Anti Hỏny Gểnator </string>
     <string name="app_name_alter">AntiHorninator </string>
 
+    <string name="onEndingFocusmode"> on_exit_focus_mode_string </string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name="subjectList">
