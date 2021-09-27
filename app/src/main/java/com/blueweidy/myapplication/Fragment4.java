@@ -15,6 +15,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 
     SensorManager sensorManager;
     Sensor accelerometerSensor;
+    Vibrator vibrator;
     boolean accelerometerPresent;
 
     Button startBttn;
@@ -54,6 +56,8 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.flag4_layout, container, false);
+
+        vibrator = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
         startBttn = view.findViewById(R.id.focus_mode_bttn);
 
@@ -127,6 +131,7 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
                 if (isFocusing){
                     startTimer();
                     turnScreenOff();
+                    vibrator.vibrate(1000);
                 }
             }
         }
@@ -139,14 +144,14 @@ public class Fragment4 extends Fragment implements View.OnClickListener{
 //endregion
 
 //region lock/unlock screen method
-
+/*
     private void unlockScreen(){
         Window window = getActivity().getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
     }
-
+*/
 
     public void turnScreenOff(){
         devicePolicyManager.lockNow();
