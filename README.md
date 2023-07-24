@@ -12,12 +12,16 @@ Setting up things like your daily routine, workout schedule or class timetable.
 # Schedule
 Setup time(AR will close current app and open Timetable if user not follow schedule setted up).
 ![image](https://github.com/blueweidy123/AntiHorninator-AR-/assets/48786184/f93c0d38-a5fc-4718-8edc-25464f7e4dde)
+
+![Pict1](https://github.com/blueweidy123/AntiHorninator-AR-/assets/48786184/ba3fe7aa-652c-4c5d-aac3-8df9ab16f6af)
+
 # Alarm
 Clock - inspired feature.
 ![image](https://github.com/blueweidy123/AntiHorninator-AR-/assets/48786184/a4f7ee4f-6edd-4a9b-a991-9dee320f2114)
 # Focus Moce
 "Start" and flip your phone down to start focus mode, AR will automatically lock your phone and record your focus time.
-![Pict1](https://github.com/blueweidy123/AntiHorninator-AR-/assets/48786184/ba3fe7aa-652c-4c5d-aac3-8df9ab16f6af)
+
+![Picture2-2](https://github.com/blueweidy123/AntiHorninator-AR-/assets/48786184/d046da64-cfda-4e2c-b5be-3a88da09669d)
 # Navigate menu
 Cool transition that i found on youtube :D
 ![Picture5-5](https://github.com/blueweidy123/AntiHorninator-AR-/assets/48786184/b9511dc4-8598-401f-bbf6-b91bb32292d8)
